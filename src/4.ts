@@ -13,9 +13,7 @@ class Key {
 
 // Клас Person, який приймає ключ і зберігає його
 class Person {
-  private key: Key;
-
-  constructor(key: Key) {
+  constructor(private key: Key) {
     this.key = key;
   }
 
@@ -26,19 +24,18 @@ class Person {
 
 // Абстрактний клас House, який має двері (відкриті або закриті) та ключ
 abstract class House {
-  protected door: boolean;
+  protected door: boolean = false;
   protected key: Key;
   protected tenants: Person[] = [];
 
   constructor(key: Key) {
-    this.door = false; // По замовчуванню двері закриті
     this.key = key;
   }
 
   abstract openDoor(key: Key): void;
 
   comeIn(person: Person): void {
-    if (this.door && this.tenants.length < 1) {
+    if (this.door) {
       this.tenants.push(person);
       console.log(`Welcome, ${person.getKey().getSignature()}!`);
     } else {
